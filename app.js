@@ -6,7 +6,12 @@ var bodyParser = require('body-parser')
 
 var mongoose = require('mongoose')
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost/shop')
+
+if (process.env.NODE_ENV === 'production') {
+  mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds027295.mlab.com:27295/wdi6')
+} else {
+  mongoose.connect('mongodb://localhost/shop')
+}
 
 app.set('view engine', 'ejs')
 app.use(layout)
